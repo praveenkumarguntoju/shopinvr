@@ -20,7 +20,7 @@ function login() {
     url: "/login",
     success: function(data) {
       console.log("success");
-      console.log(JSON.stringify(data));
+      location.href = "shopping.html";
     }
   });
 }
