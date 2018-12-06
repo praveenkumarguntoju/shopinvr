@@ -1,0 +1,109 @@
+<script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+<script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+<!-- include ar.js for A-Frame -->
+<style>
+    audio::-internal-media-controls-download-button {
+        display: none;
+    }
+
+    audio::-webkit-media-controls-enclosure {
+        overflow: hidden;
+    }
+
+    audio::-webkit-media-controls-panel {
+        width: calc(100% + 33px);
+    }
+</style>
+<script src="aframeAR.js"></script>
+
+<body style="margin : 0px; overflow: hidden;">
+
+    <a-scene embedded artoolkit="sourceType: webcam;">
+        <!--          3d model -->
+        <a-assets>
+            <img id="pkm1" crossorigin="" src="https://res.cloudinary.com/dksue4ip1/image/upload/v1542210193/0857e111bb7f484.jpg">
+            <img id="pkm2" crossorigin="" src="https://res.cloudinary.com/dksue4ip1/image/upload/v1542210540/72695159-yellow-caution-tape-with-words-best-price-corner-label-painted-like-danger-ribbon-discount-tag-for-o.jpg">
+            <a-asset-item id="chair" src="toon_dinosaur_creature_3/scene.gltf" crossorigin="anonymous"></a-asset-item>
+        </a-assets>
+        <!--          end -->
+
+        <!--         marker with prset -->
+        <!--    <a-marker preset='hiro'>
+          <a-gltf-model autoscale="5" src="#chair" rotation="0 0 0">
+        <a-animation attribute="rotation"
+               dur="10000"
+               fill="forwards"
+               to="0 360 0"
+               repeat="indefinite"></a-animation>
+        </a-gltf-model>
+        
+       </a-marker> -->
+        <!--     end -->
+
+        <a-marker type="pattern" url="parle.patt">
+            <a-entity id="textVal" position="" scale="3 3 3" geometry="primitive: plane;" material="color: black; opacity: 0.6" text__appname="color: yellow; align: center; font: exo2bold; wrap-count: 12; z-offset: 0.01; baseline: bottom;
+          value:Dell \n Price : 400£ " text__cityname="color:red;width:2; align: center; font: exo2semibold; wrap-count: 18; z-offset: 0.01; baseline: top;
+          value: ***" image="src:#bag">
+            </a-entity>
+            <a-image scale="1 1.2 1" src="#pkm2"> </a-image>
+        </a-marker>
+
+        <a-marker type="pattern" url="biscuit.patt">
+            <a-entity id="textVal1" position="" scale="3 3 3" geometry="primitive: plane;" material="color: black; opacity: 0.6" text__appname="color: yellow; align: center; font: exo2bold; wrap-count: 12; z-offset: 0.01; baseline: bottom;
+          value:Toshiba \n Price : 400£ " text__cityname="color:red;width:2; align: center; font: exo2semibold; wrap-count: 18; z-offset: 0.01; baseline: top;
+          value: ***">
+            </a-entity>
+            <a-image scale="1 1.2 1" src="#pkm2"> </a-image>
+        </a-marker>
+
+
+
+
+
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+        AFRAME.registerComponent('autoscale', {
+            schema: {
+                type: 'number',
+                default: 1
+            },
+            init: function () {
+                this.scale();
+                this.el.addEventListener('object3dset', () => this.scale());
+            },
+            scale: function () {
+                debugger;
+                const el = this.el;
+
+                function getParameterByName(name, url) {
+                    if (!url) url = window.location.href;
+                    var name = name.replace(/[\[\]]/g, '\\$&');
+                    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+                    var results = regex.exec(url);
+                    if (!results) return null;
+                    if (!results[2]) return '';
+                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                }
+
+                const span = this.data;
+                const mesh = el.getObject3D('mesh');
+
+                if (!mesh) return;
+
+                // Compute bounds.
+                const bbox = new THREE.Box3().setFromObject(mesh);
+
+                // Normalize scale.
+                const scale = span / bbox.getSize().length();
+                mesh.scale.set(scale, scale, scale);
+
+                // Recenter.
+                const offset = bbox.getCenter().multiplyScalar(scale);
+                mesh.position.sub(offset);
+            }
+        });
+    </script>
+
+</body>

@@ -1,0 +1,191 @@
+<html>
+
+<head>
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+      <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.2.0/dist/aframe-extras.min.js"></script>
+</head>
+
+<body>
+
+      <a-scene physics renderer="gammaOutput: true" background="color: #ECECEC" class="fullscreen" inspector="" keyboard-shortcuts="">
+            <a-assets>
+                  <a-mixin id="checkpoint"></a-mixin>
+                  <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
+                  <a-mixin id="light" geometry="primitive: sphere; radius: 1" material="color: blue; shader: flat" light="color: blue; angle: 180; distance: 60; intensity: 10; type: spot"></a-mixin>
+                  <a-asset-item id="tree" src="carpet/scene.gltf" crossorigin="anonymous"></a-asset-item>
+                  <a-asset-item id="mochilla" src="mochilla/scene.gltf" crossorigin="anonymous"></a-asset-item>
+                  <a-asset-item id="shoe" src="newb/scene.gltf" crossorigin="anonymous"></a-asset-item>
+                  <a-asset-item id="chair" src="m_chair/scene.gltf" crossorigin="anonymous"></a-asset-item>
+                  <a-asset-item id="shoe2" src="shoe2/scene.gltf" crossorigin="anonymous"></a-asset-item>
+                  <img id="buy" src="buy.png">
+                  <audio id="sound" crossorigin="anonymous" preload="auto" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
+            </a-assets>
+
+            <a-sky src="" color=""></a-sky>
+
+          
+            <a-gltf-model position="-387 -22.7 498" rotation="0.681 -3.186 1.389" src="#tree"></a-gltf-model>
+          
+            <a-entity id="textVal" position="" visible="false" geometry="primitive: plane;" material="color: black; opacity: 0.6" text__appname="color: yellow; align: center; font: exo2bold; wrap-count: 12; z-offset: 0.01; baseline: bottom;
+                value: Table" text__cityname="color: white;width:2; align: center; font: exo2semibold; wrap-count: 24; z-offset: 0.01; baseline: top;
+                value: #Laptop">
+                  <a-animation attribute="rotation" dur="10000" fill="forwards" to="0 360 0" repeat="indefinite"></a-animation>
+
+            </a-entity>
+
+
+            <a-gltf-model id="bag" scale-on-mouseenter="to: 5 5 5" id="mochilla" position="0 0.771 -4.2" src="#mochilla" scale="2 2 2">
+                  <a-animation attribute="rotation" dur="18000" from="0 180 0" to="0 360 0" repeat="indefinite" easing="linear"></a-animation>
+            </a-gltf-model>
+            <a-sphere src="#buy" add-to-basket="keyboard" radius="0" position="0 -2 -4.2">
+                  <a-animation attribute="rotation"
+                  dur="10000"
+                  fill="forwards"
+                  to="0 360 0"
+                  repeat="indefinite"></a-animation>
+             </a-sphere> 
+
+            <a-gltf-model id="shoe" autoscale="3" scale-on-mouseenter="to: 5 5 5" position="0 1.4 -20" src="#shoe" scale="2 2 2">
+            </a-gltf-model>
+            <a-sphere src="#buy" add-to-basket="shoe" radius="0" position="3 1.4 -20">
+                  <a-animation attribute="rotation"
+                  dur="10000"
+                  fill="forwards"
+                  to="0 360 0"
+                  repeat="indefinite"></a-animation>
+             </a-sphere> 
+
+            <a-gltf-model id="shoe2" autoscale="3" scale-on-mouseenter="to: 5 5 5" position="-10 1.4 -20" src="#shoe2" scale="2 2 2" rotation="-4.61014788385706 148.75073890437515 3.129304516040354">
+            </a-gltf-model>
+            <a-sphere src="#buy" add-to-basket="shoe2" radius="0" position="-13 1.4 -20">
+                  <a-animation attribute="rotation"
+                  dur="10000"
+                  fill="forwards"
+                  to="0 360 0"
+                  repeat="indefinite"></a-animation>
+             </a-sphere> 
+
+            <a-gltf-model id="table" scale-on-mouseenter="to: 5 5 5" autoscale="3" position="4 0 -9" rotation="-1.61014788385706 101.75073890437515 6.129304516040354"
+                  src="#chair" scale="2 3.6700860081435644 3.8712723604380006">
+            </a-gltf-model>
+            <a-sphere src="#buy" add-to-basket="shoe2" radius="0" position="8 0 -9">
+                  <a-animation attribute="rotation"
+                  dur="10000"
+                  fill="forwards"
+                  to="0 360 0"
+                  repeat="indefinite"></a-animation>
+             </a-sphere> 
+           
+            <a-entity id="rig" movement-controls="constrainToNavMesh: true; easingY: 15">
+                  <a-entity camera position="0 5 3" look-controls="pointerLockEnabled: true">
+                        <a-entity cursor position="0 0 -1" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;" material="color: #CCC; shader: flat;"></a-entity>
+                  </a-entity>
+            </a-entity>
+      </a-scene>
+      <script>
+            AFRAME.registerComponent('listener', {
+                  tick: function () {
+                        console.log(this.el.getAttribute('position'));
+                  }
+            });
+            AFRAME.registerComponent('autoscale', {
+                  schema: {
+                        type: 'number',
+                        default: 1
+                  },
+                  init: function () {
+                        this.scale();
+                        this.el.addEventListener('object3dset', () => this.scale());
+                  },
+                  scale: function () {
+                        debugger;
+                        const el = this.el;
+                        const span = this.data;
+                        const mesh = el.getObject3D('mesh');
+
+                        if (!mesh) return;
+
+                        // Compute bounds.
+                        const bbox = new THREE.Box3().setFromObject(mesh);
+
+                        // Normalize scale.
+                        const scale = span / bbox.getSize().length();
+                        mesh.scale.set(scale, scale, scale);
+
+                        // Recenter.
+                        const offset = bbox.getCenter().multiplyScalar(scale);
+                        mesh.position.sub(offset);
+                  }
+            });
+            AFRAME.registerComponent('scale-on-mouseenter', {
+                  schema: {
+                        to: {
+                              default: '2.5 2.5 2.5'
+                        }
+                  },
+                  init: function () {
+                        var data = this.data;
+
+                        this.el.addEventListener('mouseenter', function (evt) {
+                              debugger;
+
+                              let id = this.getAttribute('id');
+                              let tst = document.getElementById('textVal');
+                              let rotation = this.getAttribute('rotation');
+                              evt.detail.intersection.point.y = evt.detail.intersection.point
+                                    .y + 0.8;
+                              document.getElementById("sound").play();
+                              tst.setAttribute('position', evt.detail.intersection.point);
+                              if (!tst.getAttribute('visible')) {
+                                    tst.setAttribute('visible', true);
+                              }
+                              switch (id) {
+                                    case 'table':
+                                          debugger;
+                                          tst.setAttribute('text__appname', {
+                                                value: 'Chair'
+                                          });
+                                          tst.setAttribute('text__cityname', {
+                                                value: '100£'
+                                          });
+                                          break;
+                                    case 'shoe':
+                                          tst.setAttribute('text__appname', {
+                                                value: 'New Balance'
+                                          });
+                                          tst.setAttribute('text__cityname', {
+                                                value: '600£'
+                                          });
+                                          break;
+                                    case 'bag':
+                                          tst.setAttribute('text__appname', {
+                                                value: 'Amazon Basics'
+                                          });
+                                          tst.setAttribute('text__cityname', {
+                                                value: '70£'
+                                          });
+                                          break;
+                                    case 'shoe2':
+                                          tst.setAttribute('text__appname', {
+                                                value: 'Addidas'
+                                          });
+                                          tst.setAttribute('text__cityname', {
+                                                value: '50£'
+                                          });
+                                          break;
+                                    default:
+
+                              };
+
+
+
+                        });
+                  }
+            });
+      </script>
+
+
+</body>
+
+</html>

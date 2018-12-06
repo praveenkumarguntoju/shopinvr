@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> VR AR Shopping</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+   
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="main.css">
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+     
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">VR shopping</a>
+          </div>
+      
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+            <li class="active">
+                    <a class="nav-link" href="index.html">Home
+                            <span class="fa fa-home"></span>
+                    </a>
+            </li>
+            <li>
+                    <a class="nav-link" href="shopping.html">Shopping</a>
+            </li>
+            <li>
+                    <a class="nav-link" href="arsample.html">AR Screen</a>
+            </li>
+              
+            </ul>
+            <form class="navbar-form navbar-right">
+                <a href="#signup" onclick="signUpForm()" class="btn btn-warning">
+                    <span class="fa fa-user-plus"></span>Sign Up</a>
+               
+            </form>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
+
+
+
+
+
+    <div class="container">
+            <div class="content">
+            <div class="row" style="margin-top:10%">
+                  <iframe src="text.html" width="100%" allowfullscreen="yes" allowvr="yes" style="border:none;"></iframe>
+            </div>
+                  
+
+        <div class="login">
+            <div class="login-header">
+                <h1 style="color: #333333fa;font-weight: bolder;">
+                    Login</h1>
+            </div>
+
+            <div class="login-form">
+                <h3 style="color: #333333fa;font-weight: bolder;">Username:</h3>
+                <input type="text" placeholder="Username" id="username1" name="username" />
+                <br>
+                <h3 style="color: #333333fa;font-weight: bolder;">Password:</h3>
+                <input type="password" id="password1" placeholder="Password" name="password" />
+                <br>
+                <button class="btn btn-success my-2 my-sm-0 login-button" onclick="login()">
+                  <span class="glyphicon glyphicon-user"></span>Login</button>
+            </div>
+        </div>
+
+        <!-- start here -->
+        <div class="row registerForm " style="display:none;">
+            <form >
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>First Name</label>
+                            <input type="text" id="fname" name="firstName" placeholder="Enter First Name Here.." class="form-control">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Last Name</label>
+                            <input type="text" id="lname" name="lastName" placeholder="Enter Last Name Here.." class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <textarea id="address" placeholder="Enter Address Here.." rows="3" name="address" class="form-control"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>City</label>
+                            <input type="text" id="city" name="city" placeholder="Enter City Name Here.." class="form-control">
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>State</label>
+                            <input type="text" id="state" name="state" placeholder="Enter State Name Here.." class="form-control">
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Zip</label>
+                            <input type="text" id="postcode" name="zipcode" placeholder="Enter Zip Code Here.." class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="number" id="mobile" name="mobilenumber" placeholder="Enter Phone Number Here.." class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter Email Address Here.." class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="password" name="password" placeholder="Enter password Here.." class="form-control">
+                    </div>
+                    <div class="row" style="margin-left: 1%; padding: 5px;">
+                    <button type="submit" onclick="register()" class="btn btn-sm center btn-info">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+         <!-- end -->
+
+
+    </div>
+    </div>
+
+</body>
+
+</html>
