@@ -26,7 +26,7 @@ function login() {
 }
 
 function register() {
-  var data = {
+  var Data = {
     email: document.getElementById("email").value,
     fname: document.getElementById("fname").value,
     lname: document.getElementById("lname").value,
@@ -39,12 +39,12 @@ function register() {
   };
   $.ajax({
     type: "POST",
-    data: JSON.stringify(data),
+    data: JSON.stringify(Data),
     contentType: "application/json",
     url: "/registeruser",
     success: function(data) {
       console.log("success");
-      console.log(JSON.stringify(data));
+      location.href = "shopping.html";
     }
   });
 }
