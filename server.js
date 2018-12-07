@@ -59,7 +59,6 @@ app.post("/registeruser", function(req, res) {
       console.log("ERROR: " + reason);
       res.status(code || 500).json({ error: message });
     } else {
-      res.status(201).json(doc.ops[0]);
       res.send("success");
     }
   });
