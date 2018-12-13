@@ -100,6 +100,12 @@
                   scale: function () {
                         debugger;
                         const el = this.el;
+                         var test = AFRAME.utils.device.isMobile();
+                        if(test){
+                              this.data = 3;
+                        }else{
+                              this.data = 6;
+                        }
                         const span = this.data;
                         const mesh = el.getObject3D('mesh');
 
